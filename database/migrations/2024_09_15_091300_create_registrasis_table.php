@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('ipk');
             $table->string('beasiswa');
             $table->string('file');
+            $table->string('status');
             $table->timestamps();
         });
     }

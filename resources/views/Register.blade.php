@@ -28,8 +28,8 @@
     <div>
         <div id="section2" class="p-8 mt-6 lg:mt-0 rounded shadow bg-white flex justify-center">
 
-            <form>
-
+            <form action="/register" method="POST" enctype="multipart/form-data">
+                @csrf
                 <div class=" mb-6">
                     <div class="">
                         <label class="block text-gray-600 font-bold md:text-left mb-3 md:mb-0 pr-4" for="my-textfield">
@@ -37,7 +37,7 @@
                         </label>
                     </div>
                     <div class="">
-                        <input class="border form-input block w-full focus:bg-white" id="my-textfield" type="text" value={{$nama}}>
+                        <input required class="border form-input block w-full focus:bg-white" id="my-textfield" type="text" name="nama" value={{$nama}}>
                     </div>
                 </div>
                 <div class=" mb-6">
@@ -47,7 +47,7 @@
                         </label>
                     </div>
                     <div class="">
-                        <input class="border form-input block w-full focus:bg-white" id="my-textfield" type="text" value={{$email}}>
+                        <input required class="border form-input block w-full focus:bg-white" id="my-textfield" type="text" name="email" value={{$email}}>
                     </div>
                 </div>
                 <div class=" mb-6">
@@ -57,18 +57,18 @@
                         </label>
                     </div>
                     <div class="">
-                        <input class="border form-input block w-full focus:bg-white" id="my-textfield" type="text" value="">
+                        <input required class="border form-input block w-full focus:bg-white" id="my-textfield" type="text" name="phone">
                     </div>
                 </div>
 
                 <div class="mb-6">
                     <div class="">
-                        <label class="block text-gray-600 font-bold md:text-left mb-3 md:mb-0 pr-4" for="my-select">
+                        <label class="block text-gray-600 font-bold md:text-left mb-3 md:mb-0 pr-4" for="semester">
                             Semester Saat Ini
                         </label>
                     </div>
                     <div class="">
-                        <select name="" class="border form-select block w-full focus:bg-white" id="my-select">
+                        <select name="semester" class="border form-select block w-full focus:bg-white" id="semester">
                             <option value="null">Pilih</option>
                             <option value="1">Semester 1</option>
                             <option value="2">Semester 2</option>
@@ -84,12 +84,12 @@
 
                 <div class=" mb-6">
                     <div class="">
-                        <label class="block text-gray-600 font-bold md:text-left mb-3 md:mb-0 pr-4" for="my-textfield">
+                        <label class="block text-gray-600 font-bold md:text-left mb-3 md:mb-0 pr-4" for="ipk">
                             IPK Terakhir
                         </label>
                     </div>
                     <div class="bg-gray-200">
-                        <input disabled class="border form-input block w-full bg-gray-200 focus:bg-gray-200" id="my-textfield" type="text" value={{$ipk}}>
+                        <input disabled class="border form-input block w-full bg-gray-200 focus:bg-gray-200" id="ipk" name="ipk" type="text" value={{$ipk}}>
                     </div>
                 </div>
 
@@ -100,7 +100,7 @@
                         </label>
                     </div>
                     <div class="">
-                        <select name="" class="border form-select block w-full focus:bg-white" id="my-select">
+                        <select name="beasiswa" class="border form-select block w-full focus:bg-white" id="my-select">
                             <option value="null">Pilih</option>
                             <option value="Beasiswa LPDP">LPDP (Lembaga Pengelola Dana Pendidikan)</option>
                             <option value="Beasiswa Seni dan Desain">Seni dan Desain</option>
@@ -117,14 +117,14 @@
                         </label>
                     </div>
                     <div class="">
-                        <input type="file" name="file">
+                        <input required type="file" name="file">
                     </div>
                 </div>
 
                 <div class="md:items-center mt-6">
                     <div class="w-full">
-                        <button class="w-full shadow bg-yellow-700 hover:bg-yellow-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="button">
-                            Save
+                        <button class="w-full shadow bg-yellow-700 hover:bg-yellow-500 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="submit">
+                            Daftar
                         </button>
                     </div>
                 </div>
@@ -132,7 +132,6 @@
 
         </div>
     </div>
-    <!-- NAVBAR END -->
     <script>
         const nav = document.querySelector('#nav')
         if (window.location.pathname === '/register') {

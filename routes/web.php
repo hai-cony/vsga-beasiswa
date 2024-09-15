@@ -1,8 +1,10 @@
 <?php
 
 use App\Models\Mahasiswa;
+use App\Models\Registrasi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
@@ -53,7 +55,7 @@ Route::post('account/login', function (Request $req) {
 
 Route::get('/beasiswa', function () {
     return view('Beasiswa');
-});
+})->middleware('user');
 
 
 Route::get('/register', function () {
@@ -65,11 +67,52 @@ Route::get('/register', function () {
         'email' => $user->email,
         'ipk' => $user->ipk
     ]);
-});
+})->middleware('user');
+
+Route::post('/register', function (Request $req) {
+    $file = $req->file;
+
+    $userEmail = Session::get('user');
+
+    $user = DB::table('mahasiswas')->where('email', '=', $userEmail)->first();
+
+    if ($file) {
+        $filename = md5(time() . Session::get('user')) . "." . $file->extension();
+
+        $path = public_path('documents');
+
+        if (!File::exists($path)) {
+            File::makeDirectory($path, 0777, true, true);
+        }
+
+        $saved = $file->move('documents', $filename);
+
+        if ($saved) {
+            $regist = new Registrasi;
+            $regist->nama = $req->nama;
+            $regist->email = $userEmail;
+            $regist->nohp = $req->phone;
+            $regist->semester = $req->semester;
+            $regist->ipk = $user->ipk;
+            $regist->beasiswa = $req->beasiswa;
+            $regist->file = $filename;
+            $regist->status = 'pending';
+            $regist->save();
+
+            return redirect()->intended('/register');
+        }
+
+        return redirect()->intended('/register');
+    } else {
+        return view('Register');
+    };
+})->middleware('user');
 
 Route::get('/result', function () {
-    return view('Result');
-});
+    $userEmail = Session::get('user');
+    $data = DB::table('registrasis')->where('email', '=', $userEmail)->first();
+    return view('Result', ['data' => $data]);
+})->middleware('user');
 
 Route::get('/', function () {
     return redirect('account/login');

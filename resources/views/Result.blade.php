@@ -26,6 +26,24 @@
         </nav>
     </header>
     <!-- NAVBAR END -->
+    <div>
+        <div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-lg">
+            <!-- Header -->
+            <div class="flex justify-between items-center border-b pb-4 mb-4">
+                <div>
+                    <h1 class="text-2xl font-bold">{{$data->nama}}</h1>
+                    <p class="text-gray-600">{{$data->email}}</p>
+                </div>
+                <div class="text-right">
+                    <p class="text-lg font-semibold">{{$data->beasiswa}}</p>
+                    <p>{{$data->nohp}}</p>
+                    <p>Semester : {{$data->semester}}</p>
+                    <p>IPK : {{$data->ipk}}</p>
+                    <p>Status : {{$data->status}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
     <script>
         const nav = document.querySelector('#nav')
         if (window.location.pathname === '/result') {
